@@ -8,7 +8,7 @@ app = Flask(__name__)
 
 scaler = pickle.load(open("Model/daibetesScaler.pkl", "rb"))
 model = pickle.load(open("Model/daibetes_model_prediction.pkl", "rb"))
-
+decission = pickle.load(open("Model/decission_classifier_pred.pkl","rb"))
 ##route for home page
 
 @app.route('/')
@@ -33,7 +33,7 @@ def predict_datapoint():
 
         new_data= scaler.transform([[Pregnancies,Glucose,BloodPressure,SkinThickness,Insulin,BMI,DiabetesPedigreeFunction,Age]])
         predict = model.predict(new_data)
-
+        predict_decission = decission.predict(new_data)
         if predict[0] == 1:
             result = 'Diabetic'
         else:
